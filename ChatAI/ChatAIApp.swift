@@ -12,7 +12,7 @@ import SwiftData
 struct ChatAIApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Message.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,7 +25,7 @@ struct ChatAIApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ChatView()
         }
         .modelContainer(sharedModelContainer)
     }
