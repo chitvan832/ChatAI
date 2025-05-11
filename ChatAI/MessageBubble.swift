@@ -12,25 +12,35 @@ struct MessageBubble: View {
     
     var body: some View {
         HStack {
+            if message.isUser { Spacer() }
+            
             if message.isUser {
-                Spacer()
-            }
-            
-            Text(message.content)
+                Text(message.content)
+                    .padding(12)
+                    .background(Color.blue)
+                    .foregroundColor(.white)
+                    .cornerRadius(20)
+            } else {
+                Group {
+                    if let attributedString = try? AttributedString(markdown: message.content) {
+                        Text(attributedString)
+                    } else {
+                        Text(message.content)
+                    }
+                }
                 .padding(12)
-                .background(message.isUser ? Color.blue : Color.gray.opacity(0.2))
-                .foregroundColor(message.isUser ? .white : .primary)
+                .background(Color.gray.opacity(0.2))
+                .foregroundColor(.primary)
                 .cornerRadius(20)
-            
-            if !message.isUser {
-                Spacer()
             }
+            
+            if !message.isUser { Spacer() }
         }
     }
 }
-
-#Preview {
-    MessageBubble(message: .init(content: "Hello",
-                                 isUser: true))
-        .modelContainer(for: Message.self)
-}
+//
+//#Preview {
+//    MessageBubble(message: .init(content: "Hello",
+//                                 isUser: true))
+//        .modelContainer(for: Message.self)
+//}

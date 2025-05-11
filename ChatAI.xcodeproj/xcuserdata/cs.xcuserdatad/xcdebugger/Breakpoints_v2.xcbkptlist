@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "9DBCD4A9-25E2-4691-86FE-6E6574FE91D0"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BE5ED61C-F806-4D32-96B4-2B043348AE62"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/ChatViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "sendMessage(modelContext:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "75796C16-6CAC-4349-89AF-39FBD5131853"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/OpenAIService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "streamChatCompletion(messages:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E051BE95-6BA9-4302-9202-0DBF62043DFD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/OpenAIService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D1E571D9-2FD1-45C7-83BF-6397B00F6F2A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/OpenAIService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "110"
+            endingLineNumber = "110">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B47BCC53-7810-41E6-B167-ECD4698AF146"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/OpenAIService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "182"
+            endingLineNumber = "182">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "40B9AE7B-9DFC-456F-96BE-ED05EBE89306"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/OpenAIService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "185"
+            endingLineNumber = "185">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "819F96B7-54AE-4C97-AA8B-9D779243BC41"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/OpenAIService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6692EAFF-7074-44F6-AB35-EAC91A852F68"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/OpenAIService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "197"
+            endingLineNumber = "197">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2CE68830-C24A-4226-8361-4CC159238289"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/CohereService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "streamChatCompletion(messages:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2CE68830-C24A-4226-8361-4CC159238289 - c2360678a8216b4d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #2 () async -&gt; () in closure #1 (Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;.Continuation) -&gt; () in ChatAI.CohereService.streamChatCompletion(messages: Swift.Array&lt;ChatAI.Message&gt;) async throws -&gt; Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;"
+                  moduleName = "ChatAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cs/Desktop/ChatAI/ChatAI/ChatAI/Services/CohereService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "82"
+                  endingLineNumber = "82">
+               </Location>
+               <Location
+                  uuid = "2CE68830-C24A-4226-8361-4CC159238289 - 1974ad1fdb67754e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for closure #2 () async -&gt; () in closure #1 (Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;.Continuation) -&gt; () in ChatAI.CohereService.streamChatCompletion(messages: Swift.Array&lt;ChatAI.Message&gt;) async throws -&gt; Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;"
+                  moduleName = "ChatAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cs/Desktop/ChatAI/ChatAI/ChatAI/Services/CohereService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "82"
+                  endingLineNumber = "82">
+               </Location>
+               <Location
+                  uuid = "2CE68830-C24A-4226-8361-4CC159238289 - de1f0ff3c7fd351"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for closure #2 () async -&gt; () in closure #1 (Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;.Continuation) -&gt; () in ChatAI.CohereService.streamChatCompletion(messages: Swift.Array&lt;ChatAI.Message&gt;) async throws -&gt; Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;"
+                  moduleName = "ChatAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cs/Desktop/ChatAI/ChatAI/ChatAI/Services/CohereService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "82"
+                  endingLineNumber = "82">
+               </Location>
+               <Location
+                  uuid = "2CE68830-C24A-4226-8361-4CC159238289 - e50f9bbee610972e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for closure #2 () async -&gt; () in closure #1 (Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;.Continuation) -&gt; () in ChatAI.CohereService.streamChatCompletion(messages: Swift.Array&lt;ChatAI.Message&gt;) async throws -&gt; Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;"
+                  moduleName = "ChatAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cs/Desktop/ChatAI/ChatAI/ChatAI/Services/CohereService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "83"
+                  endingLineNumber = "83">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "47D849F0-4622-480A-BFE1-90470F09364B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/CohereService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "streamChatCompletion(messages:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "878B6247-69B6-4FC2-BA18-B428CC0D8D2D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/CohereService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "streamChatCompletion(messages:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "878B6247-69B6-4FC2-BA18-B428CC0D8D2D - c2360678a8217633"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #2 () async -&gt; () in closure #1 (Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;.Continuation) -&gt; () in ChatAI.CohereService.streamChatCompletion(messages: Swift.Array&lt;ChatAI.Message&gt;) async throws -&gt; Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;"
+                  moduleName = "ChatAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cs/Desktop/ChatAI/ChatAI/ChatAI/Services/CohereService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44">
+               </Location>
+               <Location
+                  uuid = "878B6247-69B6-4FC2-BA18-B428CC0D8D2D - e50f9bbee6108a31"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for closure #2 () async -&gt; () in closure #1 (Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;.Continuation) -&gt; () in ChatAI.CohereService.streamChatCompletion(messages: Swift.Array&lt;ChatAI.Message&gt;) async throws -&gt; Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;"
+                  moduleName = "ChatAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cs/Desktop/ChatAI/ChatAI/ChatAI/Services/CohereService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44">
+               </Location>
+               <Location
+                  uuid = "878B6247-69B6-4FC2-BA18-B428CC0D8D2D - de1f0ff3c7fce2f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for closure #2 () async -&gt; () in closure #1 (Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;.Continuation) -&gt; () in ChatAI.CohereService.streamChatCompletion(messages: Swift.Array&lt;ChatAI.Message&gt;) async throws -&gt; Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;"
+                  moduleName = "ChatAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cs/Desktop/ChatAI/ChatAI/ChatAI/Services/CohereService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AE183858-35DA-444B-97E5-B6449FC7FA41"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/CohereService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "streamChatCompletion(messages:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BD85BA50-C955-4572-96A5-68C4FEE2B91B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/CohereService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "streamChatCompletion(messages:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BD85BA50-C955-4572-96A5-68C4FEE2B91B - db5ca13a1df23273"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #2 () async -&gt; () in closure #1 (Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;.Continuation) -&gt; () in ChatAI.CohereService.streamChatCompletion(messages: Swift.Array&lt;ChatAI.Message&gt;) async throws -&gt; Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;"
+                  moduleName = "ChatAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cs/Desktop/ChatAI/ChatAI/ChatAI/Services/CohereService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42">
+               </Location>
+               <Location
+                  uuid = "BD85BA50-C955-4572-96A5-68C4FEE2B91B - 1974ad1fdb676876"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for closure #2 () async -&gt; () in closure #1 (Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;.Continuation) -&gt; () in ChatAI.CohereService.streamChatCompletion(messages: Swift.Array&lt;ChatAI.Message&gt;) async throws -&gt; Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;"
+                  moduleName = "ChatAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cs/Desktop/ChatAI/ChatAI/ChatAI/Services/CohereService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BD84CAB3-0AEC-4EAA-9C9A-F3570FC38DB2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/CohereService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
+            landmarkName = "streamChatCompletion(messages:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8509E3DD-38FB-4460-BB89-E138BA94071C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/CohereService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "streamChatCompletion(messages:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "8509E3DD-38FB-4460-BB89-E138BA94071C - e50f9bbee6109595"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for closure #2 () async -&gt; () in closure #1 (Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;.Continuation) -&gt; () in ChatAI.CohereService.streamChatCompletion(messages: Swift.Array&lt;ChatAI.Message&gt;) async throws -&gt; Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;"
+                  moduleName = "ChatAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cs/Desktop/ChatAI/ChatAI/ChatAI/Services/CohereService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72">
+               </Location>
+               <Location
+                  uuid = "8509E3DD-38FB-4460-BB89-E138BA94071C - e50f9bbee6109674"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for closure #2 () async -&gt; () in closure #1 (Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;.Continuation) -&gt; () in ChatAI.CohereService.streamChatCompletion(messages: Swift.Array&lt;ChatAI.Message&gt;) async throws -&gt; Swift.AsyncThrowingStream&lt;Swift.String, Swift.Error&gt;"
+                  moduleName = "ChatAI.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/cs/Desktop/ChatAI/ChatAI/ChatAI/Services/CohereService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5A55E50A-AEEB-427D-B7B0-62D87454413E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/CohereService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
+            landmarkName = "streamChatCompletion(messages:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F99DF0C8-6425-4943-8745-4F6E02272393"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChatAI/Services/CohereService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "streamChatCompletion(messages:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

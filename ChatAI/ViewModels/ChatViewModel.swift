@@ -5,12 +5,17 @@ import CoreHaptics
 
 @MainActor
 class ChatViewModel: ObservableObject {
-    @Published var messages: [Message] = []
     @Published var inputText: String = ""
     @Published var isThinking: Bool = false
-    private var engine: CHHapticEngine?
+    @Published var currentStreamedText: String = ""
+    @Published var showError: Bool = false
+    @Published var errorMessage: String = ""
     
-    init() {
+    private var engine: CHHapticEngine?
+    private let cohereService: CohereService
+    
+    init(apiKey: String) {
+        cohereService = CohereService(apiKey: apiKey)
         prepareHaptics()
     }
     
@@ -29,30 +34,47 @@ class ChatViewModel: ObservableObject {
         guard !inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
         
         // Create and save user message
-        let userMessage = Message(content: inputText, isUser: true)
+        let userMessage = Message(content: inputText, role: .user)
         modelContext.insert(userMessage)
         
         // Trigger haptic feedback
         triggerHapticFeedback()
         
         // Clear input and show thinking state
-        let messageText = inputText
         inputText = ""
         isThinking = true
+        currentStreamedText = ""
         
-        // Simulate API call
+        // Start streaming response
         Task {
             do {
-                try await Task.sleep(nanoseconds: 2_000_000_000) // 2 second delay
+                // Create initial empty assistant message for UI
+                let assistantMessage = Message(content: "", role: .assistant)
+                modelContext.insert(assistantMessage)
                 
-                // Create and save AI response
-                let aiMessage = Message(content: "Echo: \(messageText)", isUser: false)
-                modelContext.insert(aiMessage)
+                // Get all messages for context, excluding the empty assistant message
+                let messages = try modelContext.fetch(FetchDescriptor<Message>(sortBy: [SortDescriptor(\.timestamp)]))
+                    .filter { $0.id != assistantMessage.id } // Exclude the empty assistant message
                 
-                isThinking = false
+                // Start streaming
+                var isFirstToken = true
+                for try await token in try await cohereService.streamChatCompletion(messages: messages) {
+                    if isFirstToken {
+                        isFirstToken = false
+                        isThinking = false
+                        triggerHapticFeedback() // Second haptic feedback
+                    }
+                    
+                    withAnimation(.easeIn) {
+                        currentStreamedText += token
+                        assistantMessage.content = currentStreamedText
+                    }
+                }
+                
             } catch {
                 isThinking = false
-                // TODO: Handle error
+                showError = true
+                errorMessage = error.localizedDescription
             }
         }
     }
@@ -72,4 +94,4 @@ class ChatViewModel: ObservableObject {
             print("Failed to play haptic pattern: \(error.localizedDescription)")
         }
     }
-} 
+}
