@@ -2,21 +2,27 @@ import Foundation
 import SwiftUI
 import SwiftData
 import CoreHaptics
+import AVFoundation
 
 @MainActor
-class ChatViewModel: ObservableObject {
+class ChatViewModel: NSObject, ObservableObject {
     @Published var inputText: String = ""
     @Published var isThinking: Bool = false
     @Published var currentStreamedText: String = ""
     @Published var showError: Bool = false
     @Published var errorMessage: String = ""
+    @Published var showCopiedToast: Bool = false
+    @Published var speakingMessageId: UUID? = nil
     
     private var engine: CHHapticEngine?
     private let cohereService: CohereService
+    private let synthesizer = AVSpeechSynthesizer()
     
     init(apiKey: String) {
-        cohereService = CohereService(apiKey: apiKey)
+        self.cohereService = CohereService(apiKey: apiKey)
+        super.init()
         prepareHaptics()
+        synthesizer.delegate = self
     }
     
     private func prepareHaptics() {
@@ -27,6 +33,39 @@ class ChatViewModel: ObservableObject {
             try engine?.start()
         } catch {
             print("Haptics error: \(error.localizedDescription)")
+        }
+    }
+    
+    func copyToClipboard(_ text: String) {
+        UIPasteboard.general.string = text
+        withAnimation {
+            showCopiedToast = true
+        }
+        
+        // Hide toast after 2 seconds
+        Task {
+            try? await Task.sleep(nanoseconds: 2_000_000_000)
+            withAnimation {
+                showCopiedToast = false
+            }
+        }
+    }
+    
+    func toggleSpeech(for message: Message) {
+        if speakingMessageId == message.id {
+            // Stop speaking
+            synthesizer.stopSpeaking(at: .immediate)
+            speakingMessageId = nil
+        } else {
+            // Start speaking
+            let utterance = AVSpeechUtterance(string: message.content)
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            utterance.rate = 0.5
+            utterance.pitchMultiplier = 1.0
+            utterance.volume = 1.0
+            
+            speakingMessageId = message.id
+            synthesizer.speak(utterance)
         }
     }
     
@@ -93,5 +132,16 @@ class ChatViewModel: ObservableObject {
         } catch {
             print("Failed to play haptic pattern: \(error.localizedDescription)")
         }
+    }
+}
+
+// MARK: - AVSpeechSynthesizerDelegate
+extension ChatViewModel: AVSpeechSynthesizerDelegate {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        speakingMessageId = nil
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
+        speakingMessageId = nil
     }
 }
