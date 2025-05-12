@@ -22,7 +22,7 @@ class VoiceInputManager: NSObject, ObservableObject, AVAudioRecorderDelegate {
     private func setupAudioSession() {
         let session = AVAudioSession.sharedInstance()
         do {
-            try session.setCategory(.playAndRecord, mode: .default)
+            try session.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetooth])
             try session.setActive(true)
         } catch {
             print("Failed to set up audio session: \(error)")
@@ -91,7 +91,6 @@ struct RealTimeChatView: View {
                         if !voiceManager.transcribedText.isEmpty {
                             Text(voiceManager.transcribedText)
                                 .padding()
-                                .background(Color.white)
                                 .cornerRadius(10)
                                 .shadow(radius: 2)
                                 .padding(.horizontal)

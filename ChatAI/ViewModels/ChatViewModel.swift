@@ -92,6 +92,7 @@ class ChatViewModel: NSObject, ObservableObject {
                 let messagesForAPI = conversation.messages.filter { !$0.content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
                 
                 // Start streaming
+                try await Task.sleep(for: .seconds(5.0))
                 var isFirstToken = true
                 for try await token in try await cohereService.streamChatCompletion(messages: messagesForAPI) {
                     withAnimation(.easeIn) {

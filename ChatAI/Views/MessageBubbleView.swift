@@ -17,18 +17,22 @@ struct MessageBubbleView: View {
                     .foregroundColor(message.isUser ? .white : .primary)
                     .cornerRadius(16)
             } else {
-                MarkdownTextView(text: message.content)
-                    .padding(12)
-                    .background(Color.gray.opacity(0.2))
-                    .foregroundColor(.primary)
-                    .cornerRadius(20)
-                
-                MessageButtonsView(
-                    message: message,
-                    isSpeaking: isSpeaking,
-                    onCopy: onCopy,
-                    onToggleSpeech: onToggleSpeech
-                )
+                if message.content.isEmpty {
+                    ThinkingBubble()
+                } else {
+                    MarkdownTextView(text: message.content)
+                        .padding(12)
+                        .background(Color.gray.opacity(0.2))
+                        .foregroundColor(.primary)
+                        .cornerRadius(20)
+                    
+                    MessageButtonsView(
+                        message: message,
+                        isSpeaking: isSpeaking,
+                        onCopy: onCopy,
+                        onToggleSpeech: onToggleSpeech
+                    )
+                }
             }
         }
         .frame(maxWidth: .infinity, alignment: message.isUser ? .trailing : .leading)
