@@ -92,8 +92,13 @@ class ChatViewModel: NSObject, ObservableObject {
                 let messagesForAPI = conversation.messages.filter { !$0.content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
                 
                 // Start streaming
+                var isFirstToken = true
                 for try await token in try await cohereService.streamChatCompletion(messages: messagesForAPI) {
                     withAnimation(.easeIn) {
+                        if isFirstToken {
+                            triggerHapticFeedback()
+                            isFirstToken = false
+                        }
                         currentStreamedText += token
                         assistantMessage.content = currentStreamedText
                     }
@@ -107,20 +112,9 @@ class ChatViewModel: NSObject, ObservableObject {
         }
     }
     
-    private func triggerHapticFeedback() {
-        guard CHHapticEngine.capabilitiesForHardware().supportsHaptics else { return }
-        
-        let intensity = CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.5)
-        let sharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 0.5)
-        let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensity, sharpness], relativeTime: 0)
-        
-        do {
-            let pattern = try CHHapticPattern(events: [event], parameters: [])
-            let player = try engine?.makePlayer(with: pattern)
-            try player?.start(atTime: 0)
-        } catch {
-            print("Failed to play haptic pattern: \(error.localizedDescription)")
-        }
+    func triggerHapticFeedback() {
+        let generator = UIImpactFeedbackGenerator(style: .light)
+        generator.impactOccurred()
     }
 }
 

@@ -50,16 +50,7 @@ struct ChatView: View {
                     }
                     
                     Button(action: {
-                        isInputFocused = false
-                        if let conversation = selectedConversation {
-                            viewModel.sendMessage(modelContext: modelContext, conversation: conversation)
-                        } else {
-                            // Create new conversation
-                            let conversation = Conversation()
-                            modelContext.insert(conversation)
-                            selectedConversation = conversation
-                            viewModel.sendMessage(modelContext: modelContext, conversation: conversation)
-                        }
+                        didTapSendButton()
                     }) {
                         Image(systemName: "arrow.up.circle.fill")
                             .font(.title2)
@@ -109,3 +100,22 @@ struct ChatView: View {
         }
     }
 } 
+
+extension ChatView {
+    
+    private func didTapSendButton() {
+        isInputFocused = false
+        
+        viewModel.triggerHapticFeedback()
+        
+        if let conversation = selectedConversation {
+            viewModel.sendMessage(modelContext: modelContext, conversation: conversation)
+        } else {
+            // Create new conversation
+            let conversation = Conversation()
+            modelContext.insert(conversation)
+            selectedConversation = conversation
+            viewModel.sendMessage(modelContext: modelContext, conversation: conversation)
+        }
+    }
+}
