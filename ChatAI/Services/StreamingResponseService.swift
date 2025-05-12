@@ -37,7 +37,6 @@ class StreamingResponseService: NSObject, ObservableObject {
                     
                     await MainActor.run {
                         currentResponse += token
-//                        speakToken(token)
                         handleStreamingToken(token)
                     }
                 }
@@ -58,30 +57,6 @@ class StreamingResponseService: NSObject, ObservableObject {
         isSpeaking = false
         currentResponse = ""
     }
-    
-//    private func speakToken(_ token: String) {
-//        // If we're not currently speaking, start a new utterance
-//        if !isSpeaking {
-//            let utterance = AVSpeechUtterance(string: token)
-//            utterance.rate = 0.5
-//            utterance.pitchMultiplier = 1.0
-//            utterance.volume = 1.0
-//            currentUtterance = utterance
-//            synthesizer?.speak(utterance)
-//            isSpeaking = true
-//        } else {
-//            // Append to current utterance
-//            if let currentUtterance = currentUtterance {
-//                let newText = currentUtterance.speechString + token
-//                let newUtterance = AVSpeechUtterance(string: newText)
-//                newUtterance.rate = currentUtterance.rate
-//                newUtterance.pitchMultiplier = currentUtterance.pitchMultiplier
-//                newUtterance.volume = currentUtterance.volume
-//                self.currentUtterance = newUtterance
-//                synthesizer?.speak(newUtterance)
-//            }
-//        }
-//    }
     
     private func handleStreamingToken(_ token: String) {
         tokenBuffer += token
