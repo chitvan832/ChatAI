@@ -3,7 +3,7 @@ import AVFoundation
 
 class VoiceInputManager: NSObject, ObservableObject, AVAudioRecorderDelegate {
     @Published var isRecording = false
-    @Published var volume: Float = 0
+    @Published var volume: Float = 1.0
     @Published var transcribedText: String = ""
     @Published var streamingService = StreamingResponseService()
     
@@ -37,7 +37,7 @@ class VoiceInputManager: NSObject, ObservableObject, AVAudioRecorderDelegate {
             // Start monitoring volume
             timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
                 guard let self = self else { return }
-                self.volume = self.speechService.isRecording ? 0.5 : 0.0
+                self.volume = self.speechService.isRecording ? 1.0 : 0.0
                 self.transcribedText = self.speechService.transcribedText
             }
         } catch {
@@ -110,11 +110,7 @@ struct RealTimeChatView: View {
                 
                 Spacer()
                 
-                VoiceAnimationView(
-                    isSpeaking: voiceManager.isRecording || voiceManager.streamingService.isSpeaking,
-                    volume: voiceManager.volume,
-                    isAIResponding: voiceManager.streamingService.isProcessing
-                )
+                VoiceAnimationView(isListening: $voiceManager.isRecording)
                 
                 Spacer()
                 
