@@ -8,6 +8,7 @@ struct ChatView: View {
     @State private var showingConversations = false
     @State private var selectedConversation: Conversation?
     @State private var isShowingNewConversation = false
+    @FocusState private var isInputFocused: Bool
     
     init(apiKey: String) {
         _viewModel = StateObject(wrappedValue: ChatViewModel(apiKey: apiKey))
@@ -31,10 +32,13 @@ struct ChatView: View {
                     }
                     .padding(.vertical)
                 }
+                .scrollDismissesKeyboard(.immediately)
                 
                 HStack {
-                    TextField("Type a message...", text: $viewModel.inputText)
+                    TextField("Ask anything", text: $viewModel.inputText, axis: .vertical)
                         .textFieldStyle(.roundedBorder)
+                        .lineLimit(1...10)
+                        .focused($isInputFocused)
                         .disabled(viewModel.isThinking)
                     
                     Button(action: {
@@ -45,7 +49,8 @@ struct ChatView: View {
                             .foregroundColor(.blue)
                     }
                     
-                    Button(action: { 
+                    Button(action: {
+                        isInputFocused = false
                         if let conversation = selectedConversation {
                             viewModel.sendMessage(modelContext: modelContext, conversation: conversation)
                         } else {

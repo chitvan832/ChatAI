@@ -27,6 +27,7 @@ struct ConversationListView: View {
                         VStack(alignment: .leading, spacing: 4) {
                             Text(conversation.title)
                                 .font(.headline)
+                                .lineLimit(1)
                             Text(conversation.previewText)
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
