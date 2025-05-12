@@ -8,8 +8,9 @@ class StreamingResponseService: NSObject, ObservableObject {
     @Published var currentResponse = ""
     
     private var synthesizer: AVSpeechSynthesizer?
-    private var currentUtterance: AVSpeechUtterance?
     private var responseTask: Task<Void, Never>?
+    private var tokenBuffer = ""
+    private var lastSpokenTime: Date = .now
     
     override init() {
         super.init()
@@ -36,7 +37,8 @@ class StreamingResponseService: NSObject, ObservableObject {
                     
                     await MainActor.run {
                         currentResponse += token
-                        speakToken(token)
+//                        speakToken(token)
+                        handleStreamingToken(token)
                     }
                 }
             } catch {
@@ -57,28 +59,50 @@ class StreamingResponseService: NSObject, ObservableObject {
         currentResponse = ""
     }
     
-    private func speakToken(_ token: String) {
-        // If we're not currently speaking, start a new utterance
-        if !isSpeaking {
-            let utterance = AVSpeechUtterance(string: token)
-            utterance.rate = 0.5
-            utterance.pitchMultiplier = 1.0
-            utterance.volume = 1.0
-            currentUtterance = utterance
-            synthesizer?.speak(utterance)
-            isSpeaking = true
-        } else {
-            // Append to current utterance
-            if let currentUtterance = currentUtterance {
-                let newText = currentUtterance.speechString + token
-                let newUtterance = AVSpeechUtterance(string: newText)
-                newUtterance.rate = currentUtterance.rate
-                newUtterance.pitchMultiplier = currentUtterance.pitchMultiplier
-                newUtterance.volume = currentUtterance.volume
-                self.currentUtterance = newUtterance
-                synthesizer?.speak(newUtterance)
-            }
+//    private func speakToken(_ token: String) {
+//        // If we're not currently speaking, start a new utterance
+//        if !isSpeaking {
+//            let utterance = AVSpeechUtterance(string: token)
+//            utterance.rate = 0.5
+//            utterance.pitchMultiplier = 1.0
+//            utterance.volume = 1.0
+//            currentUtterance = utterance
+//            synthesizer?.speak(utterance)
+//            isSpeaking = true
+//        } else {
+//            // Append to current utterance
+//            if let currentUtterance = currentUtterance {
+//                let newText = currentUtterance.speechString + token
+//                let newUtterance = AVSpeechUtterance(string: newText)
+//                newUtterance.rate = currentUtterance.rate
+//                newUtterance.pitchMultiplier = currentUtterance.pitchMultiplier
+//                newUtterance.volume = currentUtterance.volume
+//                self.currentUtterance = newUtterance
+//                synthesizer?.speak(newUtterance)
+//            }
+//        }
+//    }
+    
+    private func handleStreamingToken(_ token: String) {
+        tokenBuffer += token
+        lastSpokenTime = .now
+
+        if token.hasSuffix(".") || token.hasSuffix("?") || token.hasSuffix("!") {
+            speakBufferedText()
         }
+    }
+
+    private func speakBufferedText() {
+        guard !tokenBuffer.isEmpty else { return }
+
+        let utterance = AVSpeechUtterance(string: tokenBuffer.trimmingCharacters(in: .whitespacesAndNewlines))
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        utterance.rate = 0.5
+        utterance.pitchMultiplier = 1.0
+        utterance.volume = 1.0
+
+        synthesizer?.speak(utterance)
+        tokenBuffer = ""
     }
 }
 
