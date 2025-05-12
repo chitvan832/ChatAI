@@ -5,7 +5,7 @@ import CoreHaptics
 import AVFoundation
 
 @MainActor
-class ChatViewModel: NSObject, ObservableObject {
+class ChatViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
     @Published var inputText: String = ""
     @Published var isThinking: Bool = false
     @Published var currentStreamedText: String = ""
@@ -18,11 +18,13 @@ class ChatViewModel: NSObject, ObservableObject {
     private let cohereService: CohereService
     private let synthesizer = AVSpeechSynthesizer()
     
+    let apiKey: String
+    
     init(apiKey: String) {
+        self.apiKey = apiKey
         self.cohereService = CohereService(apiKey: apiKey)
         super.init()
         prepareHaptics()
-        synthesizer.delegate = self
     }
     
     private func prepareHaptics() {
@@ -42,78 +44,55 @@ class ChatViewModel: NSObject, ObservableObject {
             showCopiedToast = true
         }
         
-        // Hide toast after 2 seconds
-        Task {
-            try? await Task.sleep(nanoseconds: 2_000_000_000)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             withAnimation {
-                showCopiedToast = false
+                self.showCopiedToast = false
             }
         }
     }
     
     func toggleSpeech(for message: Message) {
         if speakingMessageId == message.id {
-            // Stop speaking
             synthesizer.stopSpeaking(at: .immediate)
             speakingMessageId = nil
         } else {
-            // Start speaking
             let utterance = AVSpeechUtterance(string: message.content)
             utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
             utterance.rate = 0.5
             utterance.pitchMultiplier = 1.0
             utterance.volume = 1.0
             
-            speakingMessageId = message.id
+            synthesizer.stopSpeaking(at: .immediate)
             synthesizer.speak(utterance)
+            speakingMessageId = message.id
         }
     }
     
-    func sendMessage(modelContext: ModelContext) {
-        guard !inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
-        
-        // Create and save user message
+    func sendMessage(modelContext: ModelContext, conversation: Conversation) {
         let userMessage = Message(content: inputText, role: .user)
-        modelContext.insert(userMessage)
+        conversation.messages.append(userMessage)
         
-        // Trigger haptic feedback
-        triggerHapticFeedback()
+        // Update conversation title if it's the first message
+        if conversation.title == "New Chat" {
+            conversation.title = inputText.prefix(30) + (inputText.count > 30 ? "..." : "")
+        }
         
-        // Clear input and show thinking state
         inputText = ""
         isThinking = true
-        currentStreamedText = ""
         
-        // Start streaming response
         Task {
             do {
-                // Create initial empty assistant message for UI
-                let assistantMessage = Message(content: "", role: .assistant)
-                modelContext.insert(assistantMessage)
-                
-                // Get all messages for context, excluding the empty assistant message
-                let messages = try modelContext.fetch(FetchDescriptor<Message>(sortBy: [SortDescriptor(\.timestamp)]))
-                    .filter { $0.id != assistantMessage.id } // Exclude the empty assistant message
-                
-                // Start streaming
-                var isFirstToken = true
-                for try await token in try await cohereService.streamChatCompletion(messages: messages) {
-                    if isFirstToken {
-                        isFirstToken = false
-                        isThinking = false
-                        triggerHapticFeedback() // Second haptic feedback
-                    }
-                    
-                    withAnimation(.easeIn) {
-                        currentStreamedText += token
-                        assistantMessage.content = currentStreamedText
-                    }
+                var responseText = ""
+                for try await token in try await cohereService.streamChatCompletion(messages: conversation.messages) {
+                    responseText += token
                 }
-                
-            } catch {
+                let assistantMessage = Message(content: responseText, role: .assistant)
+                conversation.messages.append(assistantMessage)
                 isThinking = false
-                showError = true
+            } catch {
                 errorMessage = error.localizedDescription
+                showError = true
+                isThinking = false
             }
         }
     }
@@ -132,16 +111,5 @@ class ChatViewModel: NSObject, ObservableObject {
         } catch {
             print("Failed to play haptic pattern: \(error.localizedDescription)")
         }
-    }
-}
-
-// MARK: - AVSpeechSynthesizerDelegate
-extension ChatViewModel: AVSpeechSynthesizerDelegate {
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
-        speakingMessageId = nil
-    }
-    
-    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didCancel utterance: AVSpeechUtterance) {
-        speakingMessageId = nil
     }
 }

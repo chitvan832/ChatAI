@@ -19,6 +19,7 @@ struct ChatAIApp: App {
     
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
+            Conversation.self,
             Message.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
