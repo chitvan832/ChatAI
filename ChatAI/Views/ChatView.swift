@@ -81,14 +81,6 @@ struct ChatView: View {
                         .transition(.move(edge: .top).combined(with: .opacity))
                 }
             }
-            .overlay {
-                if viewModel.isThinking {
-                    ProgressView()
-                        .scaleEffect(1.5)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .background(Color.black.opacity(0.2))
-                }
-            }
             .alert("Error", isPresented: $viewModel.showError) {
                 Button("OK", role: .cancel) {}
             } message: {

@@ -5,7 +5,7 @@ import CoreHaptics
 import AVFoundation
 
 @MainActor
-class ChatViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
+class ChatViewModel: NSObject, ObservableObject {
     @Published var inputText: String = ""
     @Published var isThinking: Bool = false
     @Published var currentStreamedText: String = ""
@@ -25,6 +25,7 @@ class ChatViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
         self.cohereService = CohereService(apiKey: apiKey)
         super.init()
         prepareHaptics()
+        synthesizer.delegate = self
     }
     
     private func prepareHaptics() {
@@ -74,20 +75,29 @@ class ChatViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
         
         // Update conversation title if it's the first message
         if conversation.title == "New Chat" {
-            conversation.title = inputText.prefix(30) + (inputText.count > 30 ? "..." : "")
+            conversation.updateTitle()
         }
         
         inputText = ""
         isThinking = true
+        currentStreamedText = ""
         
         Task {
             do {
-                var responseText = ""
-                for try await token in try await cohereService.streamChatCompletion(messages: conversation.messages) {
-                    responseText += token
-                }
-                let assistantMessage = Message(content: responseText, role: .assistant)
+                // Create initial empty assistant message for UI
+                let assistantMessage = Message(content: "", role: .assistant)
                 conversation.messages.append(assistantMessage)
+                
+                // Filter out empty messages before sending to API
+                let messagesForAPI = conversation.messages.filter { !$0.content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }
+                
+                // Start streaming
+                for try await token in try await cohereService.streamChatCompletion(messages: messagesForAPI) {
+                    withAnimation(.easeIn) {
+                        currentStreamedText += token
+                        assistantMessage.content = currentStreamedText
+                    }
+                }
                 isThinking = false
             } catch {
                 errorMessage = error.localizedDescription
@@ -111,5 +121,12 @@ class ChatViewModel: NSObject, ObservableObject, AVSpeechSynthesizerDelegate {
         } catch {
             print("Failed to play haptic pattern: \(error.localizedDescription)")
         }
+    }
+}
+
+extension ChatViewModel: AVSpeechSynthesizerDelegate {
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        speakingMessageId = nil
     }
 }
