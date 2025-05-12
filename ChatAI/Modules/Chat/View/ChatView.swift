@@ -44,7 +44,7 @@ struct ChatView: View {
                     Button(action: {
                         showingVoiceChat = true
                     }) {
-                        Image(systemName: "waveform")
+                        Image(systemName: SystemImage.waveForm.rawValue)
                             .font(.title2)
                             .foregroundColor(.blue)
                     }
@@ -52,19 +52,20 @@ struct ChatView: View {
                     Button(action: {
                         didTapSendButton()
                     }) {
-                        Image(systemName: "arrow.up.circle.fill")
+                        Image(systemName: SystemImage.arrowUpCircleFill.rawValue)
                             .font(.title2)
                     }
                     .disabled(viewModel.inputText.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || viewModel.isThinking)
                 }
                 .padding()
+                .background(Color.gray.opacity(0.3))
             }
             .navigationTitle(selectedConversation?.title ?? "New Chat")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Button(action: { showingConversations = true }) {
-                        Image(systemName: "list.bullet")
+                        Image(systemName: SystemImage.listBullet.rawValue)
                     }
                 }
             }
