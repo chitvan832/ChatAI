@@ -5,14 +5,16 @@ class VoiceInputManager: NSObject, ObservableObject, AVAudioRecorderDelegate {
     @Published var isRecording = false
     @Published var volume: Float = 0
     @Published var transcribedText: String = ""
-    @Published var aiResponse: String = ""
+    @Published var streamingService = StreamingResponseService()
     
     private var audioRecorder: AVAudioRecorder?
     private var timer: Timer?
-    private let speechService: GoogleSpeechService
+    private let speechService: SpeechRecognitionService
+    private let cohereService: CohereService
     
     init(apiKey: String) {
-        self.speechService = GoogleSpeechService()
+        self.speechService = SpeechRecognitionService()
+        self.cohereService = CohereService(apiKey: apiKey)
         super.init()
         setupAudioSession()
     }
@@ -28,15 +30,18 @@ class VoiceInputManager: NSObject, ObservableObject, AVAudioRecorderDelegate {
     }
     
     func startRecording() {
-        speechService.startRecording()
-        isRecording = true
-        
-        // Start monitoring volume
-        timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
-            guard let self = self else { return }
-//            self.volume = self.speechService.isProcessing ? 0.5 : 0.0
-            self.transcribedText = self.speechService.transcribedText
-            self.aiResponse = self.speechService.aiResponse
+        do {
+            try speechService.startRecording()
+            isRecording = true
+            
+            // Start monitoring volume
+            timer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true) { [weak self] _ in
+                guard let self = self else { return }
+                self.volume = self.speechService.isRecording ? 0.5 : 0.0
+                self.transcribedText = self.speechService.transcribedText
+            }
+        } catch {
+            print("Failed to start recording: \(error)")
         }
     }
     
@@ -46,6 +51,13 @@ class VoiceInputManager: NSObject, ObservableObject, AVAudioRecorderDelegate {
         timer = nil
         isRecording = false
         volume = 0
+        
+        // Start streaming response if we have transcribed text
+        if !transcribedText.isEmpty {
+            Task {
+                await streamingService.startStreamingResponse(from: cohereService, prompt: transcribedText)
+            }
+        }
     }
 }
 
@@ -85,8 +97,8 @@ struct RealTimeChatView: View {
                                 .padding(.horizontal)
                         }
                         
-                        if !voiceManager.aiResponse.isEmpty {
-                            Text(voiceManager.aiResponse)
+                        if !voiceManager.streamingService.currentResponse.isEmpty {
+                            Text(voiceManager.streamingService.currentResponse)
                                 .padding()
                                 .background(Color.blue.opacity(0.1))
                                 .cornerRadius(10)
@@ -99,9 +111,9 @@ struct RealTimeChatView: View {
                 Spacer()
                 
                 VoiceAnimationView(
-                    isSpeaking: voiceManager.isRecording,
+                    isSpeaking: voiceManager.isRecording || voiceManager.streamingService.isSpeaking,
                     volume: voiceManager.volume,
-                    isAIResponding: isAIResponding
+                    isAIResponding: voiceManager.streamingService.isProcessing
                 )
                 
                 Spacer()
@@ -109,10 +121,8 @@ struct RealTimeChatView: View {
                 Button(action: {
                     if voiceManager.isRecording {
                         voiceManager.stopRecording()
-                        isAIResponding = true
                     } else {
                         voiceManager.startRecording()
-                        isAIResponding = false
                     }
                 }) {
                     Image(systemName: voiceManager.isRecording ? "stop.circle.fill" : "mic.circle.fill")

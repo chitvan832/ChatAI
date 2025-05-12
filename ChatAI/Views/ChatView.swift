@@ -4,9 +4,7 @@ import SwiftData
 struct ChatView: View {
     @StateObject private var viewModel: ChatViewModel
     @Environment(\.modelContext) private var modelContext
-    @State private var showVoiceChat = false
     @State private var showingVoiceChat = false
-    @State private var googleAPIKey: String = ""
     
     init(apiKey: String) {
         _viewModel = StateObject(wrappedValue: ChatViewModel(apiKey: apiKey))
@@ -73,13 +71,7 @@ struct ChatView: View {
                 Text(viewModel.errorMessage)
             }
             .fullScreenCover(isPresented: $showingVoiceChat) {
-                RealTimeChatView(apiKey: googleAPIKey)
-            }
-            .onAppear {
-                // Load API key from environment or configuration
-                if let key = ProcessInfo.processInfo.environment["GOOGLE_API_KEY"] {
-                    googleAPIKey = key
-                }
+                RealTimeChatView(apiKey: Config.cohereAPIKey)
             }
         }
     }
